@@ -1,0 +1,28 @@
+[
+  {
+    "ID": 23456,
+    "users": 123,
+    "projekt": 236,
+    "datum": "2018-09-26",
+    "h": 7,
+    "m": 0,
+    "kat": null,
+    "note": "work!",
+    "ext": null,
+    "div1": null,
+    "div2": null
+  },
+  {
+    "ID": 34567,
+    "users": 123,
+    "projekt": 228,
+    "datum": "2018-09-26",
+    "h": 0,
+    "m": 30,
+    "kat": null,
+    "note": "",
+    "ext": null,
+    "div1": null,
+    "div2": null
+  }
+]

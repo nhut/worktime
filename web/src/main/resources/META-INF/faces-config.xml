@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ Copyright since 2018 Nhut Do <mr.nhut@gmail.com>
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <lifecycle>
+        <phase-listener>fi.donhut.web.app.listener.SessionTimeoutListener</phase-listener>
+    </lifecycle>
+
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>fi</supported-locale>
+        </locale-config>
+
+        <el-resolver>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+        <resource-bundle>
+            <base-name>build</base-name>
+            <var>build</var>
+        </resource-bundle>
+
+        <resource-bundle>
+            <base-name>fi.donhut.web.rb.serverMsg</base-name>
+            <var>serverMsg</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>fi.donhut.web.rb.msg</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>fi.donhut.web.rb.msgError</base-name>
+            <var>msgError</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>fi.donhut.web.rb.msgLogout</base-name>
+            <var>msgLogout</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>fi.donhut.web.rb.msgSummaryTab</base-name>
+            <var>msgSummaryTab</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>fi.donhut.web.rb.msgFileImportTab</base-name>
+            <var>msgFileImportTab</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>fi.donhut.web.rb.msgWorkHourInputTab</base-name>
+            <var>msgWorkHourInputTab</var>
+        </resource-bundle>
+
+    </application>
+    <factory>
+        <exception-handler-factory>fi.donhut.web.app.exception.ViewExpiredExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+
+</faces-config>

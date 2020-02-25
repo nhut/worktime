@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright since 2018 Nhut Do <mr.nhut@gmail.com>
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:composition template="/template/common.xhtml">
+    <ui:param name="activeIndex" value="1"/>
+    <ui:define name="content">
+        <h:form id="jiraUploadForm" enctype="multipart/form-data">
+            <p:growl id="messages" showDetail="true"/>
+            <p:fieldset legend="#{msgFileImportTab.title_jira_file}">
+                <p:fieldset legend="#{msgFileImportTab.example_csv_file}" toggleable="true" collapsed="true">
+                    <p:outputLabel value="#{msgFileImportTab.csv_file_mandatory_fields}" />
+                    <br/>&nbsp;
+                    <p:fieldset legend="#{msgFileImportTab.csv_file_jira_import_tip}" toggleable="true">
+                        <p:outputLabel value="#{msgFileImportTab.csv_file_jira_import}" escape="false" />
+                    </p:fieldset>
+                    <br/>
+                    <p:fieldset legend="minimal_file.csv (#{msgFileImportTab.input_fileseparator}=,)" toggleable="true">
+                        "Work date","Hours","Work description"<br/>
+                        2018-9-3, 2.75, "Did that and that today too."
+                        2018-9-2, 5.25, "Did that and that."
+                    </p:fieldset><br/>
+                    <p:fieldset legend="jira.csv (#{msgFileImportTab.input_fileseparator}=,)" toggleable="true" collapsed="true">
+                        "Issue Key","Issue summary","Hours","Work date","Username","Full name","Period","Account Key","Account Name","Account Lead","Account Category","Account Customer","Activity Name","Component","All Components","Version Name","Issue Type","Issue Status","Project Key","Project Name","Epic","Epic Link","Work Description","Parent Key","Reporter","External Hours","Billed Hours","Issue Original Estimate","Issue Remaining Estimate","Client","Office Location","Client organization","Name of project","Name of client company","Overtime","On-Call Availability","Non-billable"<br/>
+                        "ABC1234-5","PJ - Hour Reporting",6.5,2018-9-3,"john.doe","John Doe","0918",,,,,,"PJ key",,,,"Task","Open","ABC1234","PJ name",,,"Task description... Intra note.",,"Manager name",0,6.5,,0,,,,,,"false","false","false"
+                    </p:fieldset>
+                </p:fieldset>
+                <br/>
+                <p:outputLabel for="csvSeparator" value="#{msgFileImportTab.input_fileseparator}:" />&nbsp;
+                <p:selectOneMenu id="csvSeparator" value="#{fileUploadView.csvSeparator}">
+                    <f:selectItems value="#{fileUploadView.csvSeparatorList}" />
+                    <p:ajax event="change" listener="#{fileUploadView.csvSeparatorSelectionChanged}" />
+                </p:selectOneMenu><p:spacer width="10" />
+                <p:outputLabel for="csvSeparator" value="#{msgFileImportTab.input_add_lunchtime}:" />&nbsp;
+                <p:selectBooleanButton value="#{fileUploadView.addLunchTime}" onLabel="#{msg.yes_button}" offLabel="#{msg.no_button}" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width: 5em;">
+                    <p:ajax event="change" listener="#{fileUploadView.addLunchTimeChanged}" />
+                </p:selectBooleanButton><br/>
+                <p:spacer height="5" />
+                <p:fileUpload fileUploadListener="#{fileUploadView.handleFileUpload}" mode="advanced"
+                              update="messages,uploadResultDialog" sizeLimit="1000000" allowTypes="/(\.|\/)(csv)$/"
+                              label="#{msgFileImportTab.choose_file}" uploadLabel="#{msg.upload_button}"
+                              fileLimitMessage="#{msgFileImportTab.file_uploadlimit_exceeded_only_one}" auto="true"
+                              cancelLabel="#{msg.cancel_button}" oncomplete="PF('uploadResultDialog').show();" skinSimple="true">
+                </p:fileUpload>
+            </p:fieldset>
+        </h:form>
+
+        <!-- Step 1: After file upload is pressed, this dialog will be displayed. -->
+        <p:dialog responsive="true" dynamic="true" id="uploadResultDialog" widgetVar="uploadResultDialog" minHeight="200"
+                  header="#{msgFileImportTab.title_jira_file}">
+            <c:choose>
+                <!-- ON UPLOAD FAIL -->
+                <c:when test="#{fileUploadView.status.uploadFail}">
+                    <p:outputLabel value="#{fileUploadView.errorFileUploadErrorMsg}" escape="false" />
+                    <br/><br/>
+                    <p:button value="#{msg.close_button}" onclick="PF('uploadResultDialog').hide();" />
+                </c:when>
+                <!-- ON UPLOAD SUCCESS -->
+                <c:when test="#{fileUploadView.status.uploadSuccess}">
+                    <h:form>
+                        <p:outputLabel value="#{msgFileImportTab.createTimeCards_question}" styleClass="boldText" />
+                        <p:dataTable id="createTimeCardTable" value="#{fileUploadView.timeCardCreateDialog.timecardSummaries}"
+                                     selection="#{fileUploadView.timeCardCreateDialog.selected}"
+                                     var="timecard" rowKey="#{timecard.id}"
+                                     scrollRows="15" scrollable="true" scrollHeight="400" >
+                            <p:column selectionMode="multiple" style="width:16px;" />
+                            <p:column width="150" headerText="#{msg.date}" style="text-align: left">
+                                <p:outputLabel value="#{timecard.date}" styleClass="fontSmall" />
+                            </p:column>
+                            <p:column headerText="#{msg.worktime}" style="text-align: left">
+                                <p:outputLabel value="#{timecard.startTime} - #{timecard.endTime}" styleClass="fontSmall" />
+                            </p:column>
+                            <p:column headerText="#{mgs.worktime_hour_minutes}">
+                                <p:outputLabel id="timecard_" value="#{timecard.totalHour}#{msg.unit_hour} #{timecard.totalMinute}#{msg.unit_minute}" styleClass="fontSmall" />
+                                <p:tooltip for="timecard_" position="bottom">
+                                    <p:outputLabel value="#{timecard.getRowsToolTip()}" escape="false" />
+                                </p:tooltip>
+                                <li class="fa fa-hand-o-left" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton process="createTimeCardTable" value="#{msg.yes_button}" action="#{fileUploadView.timeCardCreateDialog.yesCreateTimecards()}" oncomplete="PF('uploadResultDialog').hide(); PF('timecardCreatedDialog').show();" />
+                                <p:spacer width="10" />
+                                <p:commandButton process="createTimeCardTable" value="#{msg.no_button}" action="#{fileUploadView.timeCardCreateDialog.noSkipCreateTimecards()}" oncomplete="PF('uploadResultDialog').hide(); PF('timecardCreatedDialog').show();" />
+                                <p:spacer width="10" />
+                                <p:button value="#{msg.cancel_button}" onclick="PF('uploadResultDialog').hide();" />
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </c:when>
+            </c:choose>
+        </p:dialog>
+
+        <!-- Step 2: Time cards. -->
+        <p:dialog dynamic="true" id="timecardCreatedDialog" widgetVar="timecardCreatedDialog"
+                  header="#{msgFileImportTab.title_jira_file}" minHeight="200">
+            <c:if test="#{!fileUploadView.timeCardCreateDialog.skipTimecard}">
+                <c:choose>
+                    <!-- TIMECARD CREATE SUCCESS -->
+                    <c:when test="#{fileUploadView.status.timecardCreateSuccess}">
+                        <p:outputLabel value="#{msgFileImportTab.timecards_create_successful}" styleClass="boldText success" />
+                    </c:when>
+
+                    <!-- TIMECARD CREATE FAIL -->
+                    <c:when test="#{fileUploadView.status.timecardCreateFail}">
+                        <p:outputLabel value="#{msgFileImportTab.timecards_create_failed}" styleClass="boldText error" /><br />
+                        <p:outputLabel value="(#{fileUploadView.errorTimecardCreateMsg})" styleClass="fontSmall error" />
+                    </c:when>
+                </c:choose>
+                <br/><br/>
+            </c:if>
+            <h:form>
+            <p:outputLabel value="#{msgFileImportTab.workhour_create_confirm}" styleClass="boldText" />
+                <p:dataTable value="#{fileUploadView.workHourCreateDialog.timecardSummaries}"
+                             selection="#{fileUploadView.workHourCreateDialog.selected}"
+                             var="timecard" rowKey="#{timecard.id}"
+                             scrollRows="15" scrollable="true" scrollHeight="300" >
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center" headerText=""/>
+                    <p:column headerText="#{msg.date}">
+                        <p:outputLabel value="#{timecard.date}" styleClass="fontSmall" />
+                    </p:column>
+                    <p:column headerText="#{msg.description}">
+                        <p:outputLabel value="#{timecard.getRowsToolTip()}" escape="false" styleClass="fontSmall" />
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton value="#{msg.yes_button}" action="#{fileUploadView.workHourCreateDialog.yesCreateWorkHours}" oncomplete="PF('timecardCreatedDialog').hide(); PF('workHourCreatedDialog').show();"  />
+                        <p:spacer width="10" />
+                        <p:button value="#{msg.cancel_button}" onclick="PF('timecardCreatedDialog').hide();" />
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+
+        <!-- Step 3: Work hours. -->
+        <p:dialog dynamic="true" id="workHourCreatedDialog" widgetVar="workHourCreatedDialog"
+                  header="#{msgFileImportTab.title_jira_file}" minHeight="200">
+            <c:choose>
+                <!-- WORKHOUR CREATE SUCCESS -->
+                <c:when test="#{fileUploadView.status.workHourCreateSuccess}">
+                    <p:outputLabel value="#{msgFileImportTab.workhour_create_successful}" styleClass="boldText success" />
+                </c:when>
+
+                <!-- WORKHOUR CREATE FAIL -->
+                <c:when test="#{fileUploadView.status.workHourCreateFail}">
+                    <p:outputLabel value="#{msgFileImportTab.workhour_create_failed}" styleClass="boldText error" /><br/>
+                    <p:outputLabel value="(#{fileUploadView.errorWorkHourCreateMsg})" styleClass="fontSmall error" />
+                </c:when>
+            </c:choose>
+            <br/><br/>
+            <p:button value="#{msg.close_button}" onclick="PF('workHourCreatedDialog').hide();" />
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+</html>

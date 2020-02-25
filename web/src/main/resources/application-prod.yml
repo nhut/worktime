@@ -1,0 +1,18 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+jsf:
+  project-stage: production
+
+app:
+  client:
+    phz:
+      enabled: true
+      url: https://intra-api.phz.fi
+
+logging:
+  file:
+    max-size: 50MB
+    max-history: 10

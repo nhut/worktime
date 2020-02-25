@@ -1,0 +1,33 @@
+{
+  "user": {
+    "ID": 123,
+    "vorname": "Nhut",
+    "nachname": "Do",
+    "kurz": "ND",
+    "firma": "",
+    "gruppe": 36,
+    "email": "nhut.do@phz.fi",
+    "acc": "cy",
+    "tel1": "",
+    "tel2": "",
+    "fax": "",
+    "strasse": "",
+    "stadt": "",
+    "plz": "",
+    "land": "",
+    "sprache": "fi",
+    "mobil": "0401234567",
+    "loginname": "nhut",
+    "ldap_name": "",
+    "anrede": "",
+    "sms": "",
+    "role": 1,
+    "proxy": null,
+    "hrate": "",
+    "usertype": null,
+    "status": null
+  },
+  "access_token": "lz24nTraOPtovrsrX34637XLwlLavLzb4KFRUg2WPez346WEXwpIcesQz6ob5",
+  "refresh_token": "kqK5LGYTqEe346i4IFSTappZVmpaCJrs3453XEx2s4KKPf3756Q3HbZBDapTl",
+  "refresh_url": "https:\/\/intra-api.phz.fi\/\/auth\/refresh"
+}

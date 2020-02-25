@@ -1,0 +1,41 @@
+[
+  {
+    "ID": 12345,
+    "users": 123,
+    "projekt": 236,
+    "datum": "2018-10-01",
+    "h": 7,
+    "m": 0,
+    "kat": null,
+    "note": "work!",
+    "ext": null,
+    "div1": null,
+    "div2": null
+  },
+  {
+    "ID": 12346,
+    "users": 123,
+    "projekt": 236,
+    "datum": "2018-10-01",
+    "h": 2,
+    "m": 0,
+    "kat": null,
+    "note": "daily, meetings",
+    "ext": null,
+    "div1": null,
+    "div2": null
+  },
+  {
+    "ID": 12347,
+    "users": 123,
+    "projekt": 228,
+    "datum": "2018-10-01",
+    "h": 0,
+    "m": 30,
+    "kat": null,
+    "note": "-",
+    "ext": null,
+    "div1": null,
+    "div2": null
+  }
+]

@@ -1,0 +1,5 @@
+app:
+  client:
+    phz:
+      enabled: true
+      url: https://d49b469d-5405-489c-baa9-7571f457a495.mock.pstmn.io

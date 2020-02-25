@@ -1,0 +1,46 @@
+server:
+  port: 443
+  error:
+    whitelabel:
+      enabled: true
+  ssl:
+    key-store: classpath:tomcat_keystore.p12
+    key-store-password: v32X3pJkmRqxTnRxx
+    key-store-type: PKCS12
+    key-alias: tomcat
+  compression:
+    enabled: true
+
+spring:
+  devtools:
+    restart:
+      enabled: false
+      exclude: static/**,templates/**,META-INF/resources/css/**,META-INF/resources/images/**,META-INF/resources/template/**
+    livereload:
+      enabled: true
+  output:
+    ansi:
+      enabled: always
+
+jsf:
+  primefaces:
+    theme: home
+    font-awesome: true
+    client-side-validation: true
+  state-saving-method: client
+  project-stage: development
+  facelets-skip-comments: true
+
+app:
+  client:
+    phz:
+      enabled: false
+      url: http://localhost:8088
+
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: INFO
+    fi.donhut: INFO

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright since 2018 Nhut Do <mr.nhut@gmail.com>
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{localeManager.language}">
+<h:head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Cache-control" content="public" />
+    <meta name="author" content="Nhut Do &lt;mr.nhut@gmail.com&gt; @ 2018-->" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="shortcut icon" href="/images/logo.ico" />
+    <link rel="apple-touch-startup-image" href="/images/logo.png" />
+
+    <title>#{msg.app}</title>
+    <h:outputStylesheet name="common-style.css" library="css" />
+    <ui:insert name="head">
+    </ui:insert>
+    <ui:insert name="handleAjax">
+        <script type="text/javascript">
+            PrimeFaces.changeTheme('#{themeSwitcher.selectedTheme}');
+
+            $(document).on("pfAjaxError", function(event, xhr, options) {
+                var responseText = xhr.responseText;
+                if (responseText.equals('logout') || responseText.indexOf('#{msgLogout.user_logged_out}' > 0) ||
+                    responseText.indexOf('Status 405 – Method Not Allowed') > 0) {
+                    window.location = "/logout";
+                } else {
+                    console.log('Response code: ' + xhr.responseCode)
+                    console.log('Response text: ' + xhr.responseText);
+                }
+            });
+        </script>
+    </ui:insert>
+    <script type="text/javascript">
+        function showWaitIcon() {
+            document.getElementById('waitImg').className = 'showThis';
+        }
+        function hideWaitIcon() {
+            document.getElementById('waitImg').className = 'hideThis';
+        }
+    </script>
+</h:head>
+
+<h:body>
+    <p:ajaxStatus onstart="showWaitIcon()" onsuccess="hideWaitIcon()" />
+
+    <h:form prependId="false" id="toolBarMenuForm">
+    <p:toolbar id="tb" styleClass="toolbar" style="vertical-align: bottom !important;">
+        <f:facet name="left">
+            <p:tabMenu activeIndex="#{activeIndex}" rendered="#{userManager.loggedIn}" style="border: 0">
+                <p:menuitem value="#{msg.tabs_workhour_input}" icon="fa fa-pencil-square-o" url="/secured/workHourInputTab.xhtml" />
+                <p:menuitem value="#{msg.tabs_csv_import}" icon="fa fa-upload" url="/secured/fileImportTab.xhtml" />
+                <p:menuitem value="#{msg.tabs_summary}" icon="fa fa-list-alt" url="/secured/summaryTab.xhtml" />
+                <p:menuitem value="#{msg.tabs_links}" icon="fa fa-link" url="/secured/linksTab.xhtml" />
+            </p:tabMenu>
+        </f:facet>
+        <f:facet name="right">
+            <p:graphicImage id="waitImg" value="/images/ajax-loader.gif" styleClass="alignBottom hideThis" height="30px" />
+            <p:spacer width="10" />
+            <p:outputLabel value="#{userManager.currentUser.firstName}" rendered="#{userManager.loggedIn}" styleClass="alignBottom" />
+            <p:spacer width="10" />
+            <p:commandButton icon="fa fa-sign-out" value="#{msg.logout_button}" styleClass="alignBottom"
+                             action="#{userManager.logout()}" rendered="#{userManager.loggedIn}" ajax="false" />
+            <p:spacer width="10" />
+            <p:selectOneMenu value="#{localeManager.language}" onchange="submit()" styleClass="alignBottom" valueChangeListener="#{localeManager.languageChanged}">
+                <f:selectItem itemValue="en" itemLabel="English" />
+                <f:selectItem itemValue="fi" itemLabel="Suomi" />
+            </p:selectOneMenu>
+            <p:spacer width="5" />
+            <p:themeSwitcher id="advanced" style="width:165px" effect="fade" var="t" styleClass="alignBottom"
+                             onchange="submit()" value="#{themeSwitcher.selectedTheme}">
+                <f:selectItem itemLabel="#{msg.choose_theme}" itemValue="#{null}" />
+                <f:selectItems value="#{themeSwitcher.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
+                <p:column>
+                    <h:outputText styleClass="ui-theme ui-theme-#{t.name}" style="display: block;" />
+                </p:column>
+                <p:column>
+                    #{t.displayName}
+                </p:column>
+            </p:themeSwitcher>
+        </f:facet>
+    </p:toolbar>
+    </h:form>
+    <p:spacer height="1" />
+
+    <ui:insert name="page">
+        <div id="header">
+            <ui:insert name="header" >
+            </ui:insert>
+        </div>
+
+        <div id="content">
+            <ui:insert name="content" >
+            </ui:insert>
+        </div>
+        <ui:insert name="contentExt"></ui:insert>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+            </ui:insert>
+        </div>
+    </ui:insert>
+    <div id="footerText">&copy; Nhut Do (nhut.do@phz.fi / mr.nhut@gmail.com) 2018</div>
+</h:body>
+</f:view>
+</html>

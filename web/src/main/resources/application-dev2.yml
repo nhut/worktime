@@ -1,0 +1,13 @@
+server:
+  error:
+    whitelabel:
+      enabled: true
+
+jsf:
+  project-stage: development
+
+app:
+  client:
+    phz:
+      enabled: true
+      url: https://intra-api.phz.fi

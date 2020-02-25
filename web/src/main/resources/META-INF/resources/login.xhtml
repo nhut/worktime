@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright since 2018 Nhut Do <mr.nhut@gmail.com>
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+<ui:composition template="/template/common.xhtml">
+    <ui:define name="head">
+        <f:metadata>
+            <f:viewAction action="#{userManager.isLoggedInForwardHome()}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="content">
+        <center>
+            <h:form prependId="false" id="loginForm" style="display: inline-block;">
+                <p:focus context="loginForm"/>
+                <h:graphicImage value="images/app-logo.png" width="300" alt="logo"/>
+                <h:panelGroup>
+                    <p:outputLabel rendered="#{param['sessionExpired'] != null}" styleClass="warn" value="#{rb_global.session_expired}" />
+                </h:panelGroup>
+                <p:panel id="panel">
+                    <p:messages id="messages" showDetail="false" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <h:panelGrid id="loginTable" columns="3" cellpadding="4" styleClass="loginTable">
+                        <p:outputLabel for="username" value="#{msg.username}:"/>
+                        <p:inputText id="username" value="#{userManager.username}" required="true" label="#{msg.username}">
+                            <f:validateLength minimum="1"/>
+                        </p:inputText>
+                        <p:message for="username" showSummary="false" showDetail="false" display="text"/>
+
+                        <p:outputLabel for="password" value="#{msg.password}:"/>
+                        <p:password id="password" value="#{userManager.password}" required="true" label="#{msg.password}">
+                            <f:validateLength minimum="1"/>
+                        </p:password>
+                        <p:message for="password" showSummary="false" showDetail="false" display="text"/>
+
+                        <h:outputText value=""/>
+                        <p:commandButton icon="fa fa-sign-in" id="loginButton" value="#{msg.login_button}" update="panel messages"
+                                         action="#{userManager.login()}" />
+                    </h:panelGrid>
+
+                    <f:facet name="footer">
+                        <p:outputLabel value="#{msg.login_guide}" styleClass="fontSmall" />
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </center>
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,18 @@
+[
+  {
+    "ID": 12345,
+    "users": 123,
+    "datum": "2018-09-03",
+    "projekt": null,
+    "anfang": 1000,
+    "ende": 1700
+  },
+  {
+    "ID": 43037,
+    "users": 185,
+    "datum": "2018-09-04",
+    "projekt": null,
+    "anfang": 1000,
+    "ende": 1815
+  }
+]

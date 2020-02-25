@@ -1,0 +1,29 @@
+[
+  {
+    "month": "2017-09",
+    "total_minutes": 0,
+    "invoiceable_minutes": 0,
+    "invoiceability_rate": 0,
+    "cumulative_total_minutes": 0,
+    "cumulative_invoiceable_minutes": 0,
+    "cumulative_invoiceability_rate": 0
+  },
+  {
+    "month": "2017-10",
+    "total_minutes": 0,
+    "invoiceable_minutes": 0,
+    "invoiceability_rate": 0,
+    "cumulative_total_minutes": 0,
+    "cumulative_invoiceable_minutes": 0,
+    "cumulative_invoiceability_rate": 0
+  },
+  {
+    "month": "2017-11",
+    "total_minutes": 4050,
+    "invoiceable_minutes": 180,
+    "invoiceability_rate": 0.044444444444444446,
+    "cumulative_total_minutes": 4050,
+    "cumulative_invoiceable_minutes": 180,
+    "cumulative_invoiceability_rate": 0.044444444444444446
+  }
+]

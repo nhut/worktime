@@ -1,0 +1,194 @@
+[
+  {
+    "ID": 220,
+    "name": "53 Devops Production",
+    "ende": "2030-12-31",
+    "note": "PHZ Production sites & servers related work"
+  },
+  {
+    "ID": 222,
+    "name": "42 Dev Infra",
+    "ende": "2030-12-31",
+    "note": "Development environment infrastructure, such as servers, automated testing environment etc"
+  },
+  {
+    "ID": 223,
+    "name": "54 Office Infra",
+    "ende": "2030-12-31",
+    "note": "Office Moving\r\n5S Cleaning\r\nMoving of the furniture"
+  },
+  {
+    "ID": 227,
+    "name": "99 Other",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 228,
+    "name": "98 Lunch & Breaks",
+    "ende": "2030-12-31",
+    "note": "30mins per day, non-inclusive to working hours e.g. lunch"
+  },
+  {
+    "ID": 229,
+    "name": "97 Sickleave",
+    "ende": "2030-12-31",
+    "note": "7.5h\/day FI\r\n8h\/day EE"
+  },
+  {
+    "ID": 230,
+    "name": "91 Vacation",
+    "ende": "2030-12-31",
+    "note": "Paid Vacation (Vuosiloma)"
+  },
+  {
+    "ID": 231,
+    "name": "41 Dev CMAX\/Apprien",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 232,
+    "name": "62 Human Resources",
+    "ende": "2030-12-31",
+    "note": "Human Resources management related\r\n- perehdytys\r\n- development discussions"
+  },
+  {
+    "ID": 233,
+    "name": "21 Project Sales&Dem",
+    "ende": "2030-12-31",
+    "note": "Fixed term project sales (05)"
+  },
+  {
+    "ID": 234,
+    "name": "25 Support&CRM",
+    "ende": "2030-12-31",
+    "note": "Non-billable Support & After Sales for existing customers"
+  },
+  {
+    "ID": 236,
+    "name": "04 Consulting",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 244,
+    "name": "23 Marketing&Materia",
+    "ende": "2030-12-31",
+    "note": "Generic Marketing targeting to\r\n- increase brand awareness\r\n- brand positiong etc"
+  },
+  {
+    "ID": 245,
+    "name": "24 Event Marketing",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 250,
+    "name": "04.2 Cons. Overtime",
+    "ende": "2030-12-31",
+    "note": "Billable overtime"
+  },
+  {
+    "ID": 252,
+    "name": "43 Tee.do",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 254,
+    "name": "47 Finance&Admin Dev",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 255,
+    "name": "44 Games&Mobile Dev",
+    "ende": "2030-12-31",
+    "note": "Mobile app projects\r\nUnity & Games"
+  },
+  {
+    "ID": 257,
+    "name": "04.4 Non-Invoiced",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 273,
+    "name": "91.2 Nonpaid Vacatio",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 274,
+    "name": "45 Bensaa.com",
+    "ende": "2030-12-31",
+    "note": "The image uploader software, including\r\n- Bensaa.com\r\n- BeerFinder"
+  },
+  {
+    "ID": 275,
+    "name": "49 Internal Dev Othe",
+    "ende": "2030-12-31",
+    "note": "Other projects without cost center\r\nOpen source projects"
+  },
+  {
+    "ID": 277,
+    "name": "05 Fixed Projects",
+    "ende": "2030-12-31",
+    "note": "Fixed Price projects"
+  },
+  {
+    "ID": 278,
+    "name": "05.2 Change Requests",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 279,
+    "name": "96 Work Health",
+    "ende": "2030-12-31",
+    "note": "Terveystalo visits"
+  },
+  {
+    "ID": 283,
+    "name": "48 Research",
+    "ende": "2030-12-31",
+    "note": "Research projects, thesis works, experiments"
+  },
+  {
+    "ID": 289,
+    "name": "20 Con.Sales(IVW,CV)",
+    "ende": "2030-12-31",
+    "note": "Contracting Sales such as\r\n- Updating your CV\r\n- Preparing for job interviews\r\n- Job interviews, travel to & from\r\n"
+  },
+  {
+    "ID": 293,
+    "name": "95 Sports",
+    "ende": "2030-12-31",
+    "note": "Urheilu (ei palkallinen, mutta vaikuttaa bonukseen)"
+  },
+  {
+    "ID": 298,
+    "name": "06 SLA Support",
+    "ende": "2030-12-31",
+    "note": "Billable Support under SLA"
+  },
+  {
+    "ID": 301,
+    "name": "63 Training",
+    "ende": "2030-12-31",
+    "note": "Internal and external professional training, applicable for tax deduction"
+  },
+  {
+    "ID": 358,
+    "name": "97.2 Child sick",
+    "ende": "2030-12-31",
+    "note": ""
+  },
+  {
+    "ID": 372,
+    "name": "92 KiKy",
+    "ende": "2030-12-31",
+    "note": "Kilpailukykysopimuksen mukaiset 24h"
+  }
+]

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright since 2018 Nhut Do <mr.nhut@gmail.com>
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/common.xhtml">
+    <ui:param name="activeIndex" value="0" />
+    <ui:define name="header"></ui:define>
+    <ui:define name="content">
+        <p:outputPanel deferred="true">
+            <h:form prependId="false">
+                <p:selectOneMenu value="#{workHourInputView.selectedYearAndMonth}" cellpadding="5">
+                    <f:selectItems value="#{workHourInputView.yearAndMonthItems}" />
+                    <p:ajax event="change" listener="#{workHourInputView.selectedYearAndMonthSelectionChanged}" update="summary, workhourTable, errorPanel" />
+                </p:selectOneMenu>
+                <p:outputLabel id="summary" value="#{workHourInputView.getGetTotalWorkHourInputs()}" />
+                <br/>
+                <br/>
+                <p:panelGrid id="errorPanel" columns="1">
+                    <p:outputLabel value="#{workHourInputView.errorFetchProjects}" rendered="#{workHourInputView.errorFetchProjects != null}" styleClass="error" />
+                    <p:outputLabel value="#{workHourInputView.errorFetchWorkInputs}" rendered="#{workHourInputView.errorFetchWorkInputs != null}" styleClass="error" />
+                </p:panelGrid>
+
+                <p:dataTable id="workhourTable" var="workHour" widgetVar="workHourTable" value="#{workHourInputView.workHourInputs}"
+                             sortBy="#{workHour.dateS}" resizableColumns="true" expandableRowGroups="true"
+                             emptyMessage="#{msg.table_no_record_found}" stickyHeader="true" rowExpandMode="single">
+                    <p:headerRow>
+                        <p:column styleClass="textLeft" sortBy="#{workHour.dateS}">
+                            <p:outputLabel value="#{workHourInputView.getDateToDisplay(workHour.dateS)}" />
+                        </p:column>
+                        <p:column styleClass="textLeft" colspan="2">
+                            <p:outputLabel value="#{workHourInputView.getGetTotalWorkHourInputsPerDay(workHour)}" />
+                        </p:column>
+                    </p:headerRow>
+                    <p:column headerText="#{msgWorkHourInputTab.project}" sortBy="#{workHour.projectId}" width="150">
+                        <p:outputLabel id="project" value="#{workHourInputView.getProjectText(workHour.projectId)}" title="#{workHourInputView.getProjectTooltip(workHour.id)}" />
+                        <p:tooltip id="projectTooltip" for="project" value="#{workHourInputView.getProjectTooltip(workHour.id)}" trackMouse="true" />
+                    </p:column>
+                    <p:column headerText="#{msgWorkHourInputTab.description}" sortBy="#{workHour.description}">
+                        <p:outputLabel value="#{workHour.description}" />
+                    </p:column>
+                    <p:column headerText="#{msgWorkHourInputTab.worktime}" width="100">
+                        <p:outputLabel value="#{workHour.hour} #{msg.unit_hour} #{workHour.minute} #{msg.unit_minute}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:outputPanel>
+    </ui:define>
+    <ui:define name="header">
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('td.my-class > .ui-rowgroup-toggler').click();
+            });
+        </script>
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,634 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "PHZ Intra API",
+    "version": "1"
+  },
+  "paths": {
+    "\/auth\/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login the user and then return it.",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "User's username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "User's password",
+            "required": true,
+            "type": "string",
+            "format": "password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        }
+      }
+    },
+    "\/auth\/check": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/auth\/refresh": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Refreshes the tokens for the user and then returns the user in the default format",
+        "parameters": [
+          {
+            "name": "refresh_token",
+            "in": "query",
+            "description": "Refresh token to reset users auth_token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        }
+      }
+    },
+    "\/projects": {
+      "get": {
+        "tags": [
+          "Projects"
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/{year}\/{month}\/{day}": {
+      "get": {
+        "tags": [
+          "TimeProjects"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "description": "Year from which we get the TimeProjects",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "description": "Month from which we get the TimeProjects",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "day",
+            "in": "path",
+            "description": "Day from which we get the TimeProjects",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/sickleave\/{year}\/{month}": {
+      "get": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "summary": "Calculate the sick leave rate (sick leave hours vs. total hours)",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "description": "Year from which we get the minutes",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "description": "Month from which we get the minutes",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sick leave rate compared to total hours"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/invoicability\/{year}\/{month}": {
+      "get": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "summary": "Calculate invoicability rate (invoicable hours vs. total hours)",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "description": "Year from which we get the minutes",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "description": "Month from which we get the minutes",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "What is the invoicability rate?"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/bonus\/user\/{username}": {
+      "get": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "summary": "Calculate personal invoicability rate (invoicable hours vs. total hours)\nFor bonus from last 12 months.",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "User who's invoicability rate is calculated",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "What is invoicability rate of an user during the past 12months?"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/bonus\/": {
+      "get": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "summary": "Get invoiceability for all users (invoicable hours vs. total hours)\nFor bonus from last 12 months.",
+        "responses": {
+          "200": {
+            "description": "What is invoiceability rate of an user during the past 12months?"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/employees\/": {
+      "get": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "summary": "Get number of employees",
+        "responses": {
+          "200": {
+            "description": "How many employees we have now"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/employees\/hours": {
+      "get": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "summary": "Get number of employees with consulting hours last month",
+        "responses": {
+          "200": {
+            "description": "How many employees have hours in consulting (04) last month"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/velocity\/{startDate}\/{endDate}": {
+      "post": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "summary": "Calculate hours in R&D projects",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "path",
+            "description": "Start date from which we get the minutes i.e. 2018-01-15. Defaults to 2 weeks ago.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "path",
+            "description": "End date from which we get the minutes i.e. 2018-01-30. Defaults to today.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "How many hours have been spent to internal R&D work?"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects": {
+      "post": {
+        "tags": [
+          "TimeProjects"
+        ],
+        "parameters": [
+          {
+            "name": "timeprojects",
+            "in": "body",
+            "description": "Array of TimeProjects",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#\/definitions\/TimeProject"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/csv": {
+      "get": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "You can choose the user to get the hours from",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Year from which we get the hours (Default is this year)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "Month from which we get the hours (Default is last month)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timeprojects\/{timeProjectID}": {
+      "put": {
+        "tags": [
+          "TimeProjects"
+        ],
+        "parameters": [
+          {
+            "name": "timeproject",
+            "in": "body",
+            "description": "TimeProject changes",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#\/definitions\/TimeProject"
+              }
+            }
+          },
+          {
+            "name": "timeProjectID",
+            "in": "path",
+            "description": "The TimeProject's ID, which you want to update",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "TimeProjects"
+        ],
+        "summary": "Deletes the given TimeProject",
+        "description": "",
+        "produces": [
+          "application\/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          [
+            "intra_auth"
+          ]
+        ]
+      }
+    },
+    "\/timeprojects\/{year}\/{month}\/hours": {
+      "get": {
+        "tags": [
+          "TimeProjects - Other"
+        ],
+        "summary": "Get Total Hours",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "description": "Year from which we get the hours",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "description": "Month from which we get the hours",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get total hours for given month"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timecards": {
+      "post": {
+        "tags": [
+          "Timecards"
+        ],
+        "parameters": [
+          {
+            "name": "timecards",
+            "in": "body",
+            "description": "Array of TimeCards",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#\/definitions\/Timecard"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      }
+    },
+    "\/timecards\/{timecardID}": {
+      "put": {
+        "tags": [
+          "Timecards"
+        ],
+        "parameters": [
+          {
+            "name": "timecard",
+            "in": "body",
+            "description": "Timecard changes",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#\/definitions\/Timecard"
+              }
+            }
+          },
+          {
+            "name": "timecardID",
+            "in": "path",
+            "description": "The Timecard's ID, which you want to update",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An example resource"
+          }
+        },
+        "security": [
+          {
+            "intra_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Timecards"
+        ],
+        "summary": "Deletes the given Timecard",
+        "description": "",
+        "produces": [
+          "application\/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          [
+            "intra_auth"
+          ]
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "TimeProject": {
+      "properties": {
+        "projekt": {
+          "description": "Reference ID to the Projekt you want to assign the time to",
+          "type": "integer"
+        },
+        "datum": {
+          "description": "Date on which you want to assign the time to",
+          "type": "string",
+          "format": "date"
+        },
+        "h": {
+          "description": "How many hours between 0 and 24",
+          "type": "integer"
+        },
+        "m": {
+          "description": "How many minutes between 0 and 59",
+          "type": "integer"
+        },
+        "note": {
+          "description": "Note, where you can tell what you worked on",
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "xml": {
+        "name": "TimeProject"
+      }
+    },
+    "Timecard": {
+      "properties": {
+        "projekt": {
+          "description": "Reference ID to the Projekt you want to assign the Timecard to",
+          "type": "integer"
+        },
+        "datum": {
+          "description": "Date on which you want to assign the Timecard to",
+          "type": "string",
+          "format": "date"
+        },
+        "anfang": {
+          "description": "Start time (example: 0800)",
+          "type": "string"
+        },
+        "ende": {
+          "description": "End time (example: 1600)",
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "xml": {
+        "name": "Timecard"
+      }
+    }
+  },
+  "securityDefinitions": {
+    "intra_auth": {
+      "type": "apiKey",
+      "description": "Api key",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}
