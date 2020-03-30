@@ -18,11 +18,15 @@ package fi.donhut.web.app.config;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fi.donhut.web.client.phz.PhzIntraUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.PostConstruct;
 
 /**
  * PHZ intra client specific configurations.
@@ -33,8 +37,15 @@ import org.springframework.web.client.RestTemplate;
 @ConfigurationProperties(prefix = "app.client.phz")
 public class PhzIntraConfig {
 
+    private static final Logger LOG = LoggerFactory.getLogger(PhzIntraConfig.class.getName());
+
     private boolean enabled;
     private String url;
+
+    @PostConstruct
+    public void afterStart() {
+        LOG.info("PHZ intra config:\n{}", toString());
+    }
 
     public boolean isEnabled() {
         return enabled;
@@ -66,5 +77,13 @@ public class PhzIntraConfig {
         objectMapper.enable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
         objectMapper.setDateFormat(PhzIntraUtil.DATE_FORMAT);
         return objectMapper;
+    }
+
+    @Override
+    public String toString() {
+        return "PhzIntraConfig{" +
+                "enabled=" + enabled +
+                ", url='" + url + '\'' +
+                '}';
     }
 }
