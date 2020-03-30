@@ -25,10 +25,12 @@
     <ui:define name="header"></ui:define>
     <ui:define name="content">
         <p:outputPanel deferred="true">
+            <p:ajax oncomplete="collapseDetailsRows()" />
             <h:form prependId="false">
                 <p:selectOneMenu value="#{workHourInputView.selectedYearAndMonth}" cellpadding="5">
                     <f:selectItems value="#{workHourInputView.yearAndMonthItems}" />
-                    <p:ajax event="change" listener="#{workHourInputView.selectedYearAndMonthSelectionChanged}" update="summary, workhourTable, errorPanel" />
+                    <p:ajax event="change" listener="#{workHourInputView.selectedYearAndMonthSelectionChanged}" update="summary, workhourTable, errorPanel"
+                    oncomplete="collapseDetailsRows();" />
                 </p:selectOneMenu>
                 <p:outputLabel id="summary" value="#{workHourInputView.getGetTotalWorkHourInputs()}" />
                 <br/>
@@ -37,23 +39,24 @@
                     <p:outputLabel value="#{workHourInputView.errorFetchProjects}" rendered="#{workHourInputView.errorFetchProjects != null}" styleClass="error" />
                     <p:outputLabel value="#{workHourInputView.errorFetchWorkInputs}" rendered="#{workHourInputView.errorFetchWorkInputs != null}" styleClass="error" />
                 </p:panelGrid>
+                <p:commandButton type="button" value="Collaps/Expand all" onclick="collapseDetailsRows()" />
 
                 <p:dataTable id="workhourTable" var="workHour" widgetVar="workHourTable" value="#{workHourInputView.workHourInputs}"
-                             sortBy="#{workHour.dateS}" resizableColumns="true" expandableRowGroups="true"
-                             emptyMessage="#{msg.table_no_record_found}" stickyHeader="true" rowExpandMode="single">
+                             sortBy="#{workHour.dateS}" sortOrder="descending" resizableColumns="true" expandableRowGroups="true"
+                             emptyMessage="#{msg.table_no_record_found}" stickyHeader="true">
                     <p:headerRow>
-                        <p:column styleClass="textLeft" sortBy="#{workHour.dateS}">
+                        <p:column styleClass="textLeft">
                             <p:outputLabel value="#{workHourInputView.getDateToDisplay(workHour.dateS)}" />
                         </p:column>
                         <p:column styleClass="textLeft" colspan="2">
                             <p:outputLabel value="#{workHourInputView.getGetTotalWorkHourInputsPerDay(workHour)}" />
                         </p:column>
                     </p:headerRow>
-                    <p:column headerText="#{msgWorkHourInputTab.project}" sortBy="#{workHour.projectId}" width="150">
+                    <p:column headerText="#{msgWorkHourInputTab.project}" width="150">
                         <p:outputLabel id="project" value="#{workHourInputView.getProjectText(workHour.projectId)}" title="#{workHourInputView.getProjectTooltip(workHour.id)}" />
                         <p:tooltip id="projectTooltip" for="project" value="#{workHourInputView.getProjectTooltip(workHour.id)}" trackMouse="true" />
                     </p:column>
-                    <p:column headerText="#{msgWorkHourInputTab.description}" sortBy="#{workHour.description}">
+                    <p:column headerText="#{msgWorkHourInputTab.description}">
                         <p:outputLabel value="#{workHour.description}" />
                     </p:column>
                     <p:column headerText="#{msgWorkHourInputTab.worktime}" width="100">
@@ -65,9 +68,15 @@
     </ui:define>
     <ui:define name="header">
         <script type="text/javascript">
-            $(document).ready(function () {
-                $('td.my-class > .ui-rowgroup-toggler').click();
-            });
+            /*A property to set row groups to auto-collapse does not currently
+             * exist with the primefaces component.  This will auto-collapse
+             * every rowgroup, which is what I want in this case.*/
+            function collapseDetailsRows() {
+                var rowGroups = $('.ui-rowgroup-toggler');
+                for (var i = 0; i &lt; rowGroups.length; i ++) {
+                    $(rowGroups[i]).trigger('click');
+                }
+            }
         </script>
     </ui:define>
 </ui:composition>
