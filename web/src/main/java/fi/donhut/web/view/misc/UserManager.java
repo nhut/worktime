@@ -102,7 +102,6 @@ public class UserManager implements Serializable {
         if (phzAuthenticationService.isEnabled()) {
             try {
                 currentUser = phzAuthenticationService.login(username, password);
-                //LOG.trace("Access token: " + currentUser.getAccessToken());
                 phzAuthenticationService.getApiClient()
                         .addDefaultHeader("Authorization", "Bearer " + currentUser.getAccessToken());
                 return currentUser;
