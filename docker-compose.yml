@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    environment:
+      - "spring.profiles.active=prod"
+    ports:
+      - '443:443'
