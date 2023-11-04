@@ -25,7 +25,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
 
 import javax.faces.context.FacesContext;
-import java.util.Collections;
 
 /**
  * Main application.
@@ -40,10 +39,7 @@ public class WorkTimeApplication {
     private static final Logger LOG = LoggerFactory.getLogger(WorkTimeApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(WorkTimeApplication.class);
-        String port = System.getenv("PORT");
-        app.setDefaultProperties(Collections.singletonMap("server.port", port == null ? "443" : port));
-        app.run(args);
+        SpringApplication.run(WorkTimeApplication.class, args);
     }
 
     @EventListener(ApplicationReadyEvent.class)
